@@ -55,7 +55,7 @@ def write_metrics_to_bigquery(algo_name, training_time, model_metrics):
     errors = client.insert_rows_json(table, [row])
 
     if errors == []:
-        print("Metrics inserted successfully into BigQuery.")
+        print("Yes,Metrics inserted successfully into BigQuery.")
     else:
         print("Error inserting metrics into BigQuery:", errors)
 

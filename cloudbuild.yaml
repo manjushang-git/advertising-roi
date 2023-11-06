@@ -1,0 +1,25 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'gcr.io/core-site-401904/advertising-roi-model', '.']
+
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/core-site-401904/advertising-roi-model']
+
+- name: 'gcr.io/core-site-401904/advertising-roi-model'
+  entrypoint: 'bash'
+  args:
+   - '-c'
+   - |
+      python -m pytest
+
+- name: 'gcr.io/cloud-builders/git'
+  args: ['clone', 'https://github.com/manjushang-git/advertising-roi.git']
+
+- name: 'gcr.io/cloud-builders/gsutil'
+  args: ['cp', 'advertising-roi/advertising_model_training.py', 'gs://us-central1-mlops-d37c0873-bucket/dags']
+
+images:
+- 'gcr.io/core-site-401904/advertising-roi-model'
+
+options:
+  logging: CLOUD_LOGGING_ONLY

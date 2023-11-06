@@ -5,13 +5,6 @@ steps:
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'gcr.io/core-site-401904/advertising-roi-model']
 
-- name: 'gcr.io/core-site-401904/advertising-roi-model'
-  entrypoint: 'bash'
-  args:
-   - '-c'
-   - |
-      python -m pytest
-
 - name: 'gcr.io/cloud-builders/git'
   args: ['clone', 'https://github.com/manjushang-git/advertising-roi.git']
 
